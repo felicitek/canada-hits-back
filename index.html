@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CanadaHitBack Prototype</title>
+<!-- Archivo stands in for PP Formula SemiExtended. Inter is used only for the status bar and keyboard. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="stage" id="stage">
+    <div class="phone" id="phone" data-lean="" data-view="open">
+
+      <!-- playlist underlay, revealed when the match sheet is swiped down -->
+      <div class="plist" id="plist" aria-hidden="true">
+        <div class="bgl"></div>
+        <div class="ph"><h2 id="phTitle">My Playlist #2</h2><div class="sub" id="psub"></div></div>
+        <div class="list" id="plistRows"></div>
+      </div>
+
+      <!-- match sheet -->
+      <div class="sheet" id="sheet">
+        <div class="fx fx-yes"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="#fff" d="M50 2 L57 18 L67 13 L64 38 L84 28 L79 48 L96 52 L78 68 L83 76 L54 72 L54 98 L46 98 L46 72 L17 76 L22 68 L4 52 L21 48 L16 28 L36 38 L33 13 L43 18Z"/></svg></div>
+        <div class="fx fx-no"><img src="assets/4e2d0.svg" alt=""></div>
+
+        <div class="gz" id="gz" aria-hidden="true"></div>
+        <div class="grabber"></div>
+
+        <div class="chip" id="chip">
+          <div class="thumb" id="chipThumb"></div>
+          <div class="txt"><div class="lab"><span class="def">Replacing</span><span class="alt">Keeping</span></div><div class="ttlw"><span class="ttl" id="chipTitle"></span></div></div>
+        </div>
+        <button class="round tally" id="tally" aria-label="Open playlist">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="7" rx="1.8"/><path d="M5 14.5h2M10 14.5h9M5 19h2M10 19h9"/></svg>
+          <span class="badge"><img src="assets/46144.svg" alt=""><b id="count">0</b></span>
+        </button>
+
+        <div class="cntop" id="cnTop">This song is already Canadian!</div>
+
+        <div class="skel" id="skel" aria-hidden="true">
+          <div class="sk" style="left:63px;top:0;width:264px;height:264px;border-radius:8px"></div>
+          <div class="sk" style="left:16px;top:278px;width:230px;height:26px"></div>
+          <div class="sk" style="left:16px;top:312px;width:150px;height:16px"></div>
+          <div class="sk" style="left:16px;top:338px;width:150px;height:28px;border-radius:14px"></div>
+          <div class="sk" style="left:16px;top:392px;width:270px;height:18px"></div>
+          <div class="sk" style="left:16px;top:436px;width:358px;height:91px;border-radius:7px"></div>
+        </div>
+        <div class="deck" id="deck"></div>
+        <svg class="frame" id="frame" viewBox="0 0 390 844" aria-hidden="true">
+          <rect class="fr-track" x="57" y="162" width="276" height="276" rx="21" pathLength="100"/>
+          <rect class="fr-tail" x="57" y="162" width="276" height="276" rx="21" pathLength="100"/>
+          <rect class="fr-head" x="57" y="162" width="276" height="276" rx="21" pathLength="100"/>
+        </svg>
+
+        <div class="controls" id="controls">
+          <div class="slot"><button class="btn s" id="bBack" aria-label="Back to previous match" aria-disabled="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14h-3" transform="translate(0 -3)"/></svg></button></div>
+          <div class="slot"><button class="btn l no" id="bNo" aria-label="No, keep the original"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+          <div class="slot"><button class="btn l yes" id="bYes" aria-label="Yes, swap this song"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></button></div>
+          <div class="slot"><span class="pick" id="pick">Option 2</span><button class="btn s shuf" id="bShuf" aria-label="Show another Canadian pick"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg></button></div>
+        </div>
+        <div class="cnbar" id="cnBar">
+          <div class="slot"><button class="btn s" id="bBack2" aria-label="Back to previous match" aria-disabled="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14h-3" transform="translate(0 -3)"/></svg></button></div>
+          <button class="nice" id="bNice"><b>Nice, eh!</b><i>Already Canadian. On to the next one.</i></button>
+        </div>
+
+        <div class="loader on" id="loader">
+          <div class="lo-bg" id="loBg"><div class="bgl"></div></div>
+          <svg class="ripples" id="ripples" viewBox="0 0 390 844" aria-hidden="true"></svg>
+          <div class="lo-mos" id="loMos"></div>
+          <div class="lo-text h" id="loH">Reading your <em>playlist</em></div>
+          <div class="lo-text s" id="loS"></div>
+          <div class="lo-text t" id="loT"><div class="lb">Looking coast to coast</div><div class="cy" id="loCy"></div></div>
+          <button class="capsule lo-text" id="bAlt">Choose a different playlist</button>
+        </div>
+
+        <div class="finale" id="finale" aria-hidden="true">
+          <div class="bgl"></div>
+          <svg class="bigleaf" viewBox="0 0 100 100" aria-hidden="true"><path fill="#fde4e4" d="M50 2 L57 18 L67 13 L64 38 L84 28 L79 48 L96 52 L78 68 L83 76 L54 72 L54 98 L46 98 L46 72 L17 76 L22 68 L4 52 L21 48 L16 28 L36 38 L33 13 L43 18Z"/></svg>
+          <div class="thumbs" id="fthumbs"></div>
+          <div class="fhero"><h2>That’s the <b>whole</b> playlist!</h2><p id="fsum"></p></div>
+          <div class="frow">
+            <button class="fbtn pri" id="fSwap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4M21 7H8M7 21l-4-4 4-4M3 17h13"/></svg><span class="fcol">Swap songs<span class="helper">Replace your songs</span></span></button>
+            <button class="fbtn sec" id="fSave"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h13M3 12h9M3 18h9M17 15v6M14 18h6"/></svg><span class="fcol">Save as new<span class="helper">Keep your originals</span></span></button>
+          </div>
+          <div class="flinks"><button id="fUndo">Undo last</button><button id="fView">View playlist</button><button id="fAgain">Start over</button></div>
+        </div>
+      </div>
+
+      <!-- now-matching pill and tab bar (playlist + library views) -->
+      <button class="mini" id="mini" aria-label="Back to matching"></button>
+      <nav class="tabbar" id="tabbar" data-sel="match" aria-label="Main">
+        <div class="tabs">
+          <span class="glass"></span><span class="sel"></span>
+          <button class="tab t1" id="tabMatch" aria-label="Match"><span class="ic"><img class="im-sel" src="assets/2de73.svg" alt=""><img class="im-off" src="assets/b6d16.svg" alt=""></span><span class="l">Match</span></button>
+          <button class="tab t2" id="tabLib" aria-label="Library"><span class="ic">
+            <svg width="23" height="28" viewBox="0 0 23 28" aria-hidden="true"><defs><mask id="libm"><rect width="23" height="28" fill="#fff"/><path d="M14.9 13.5v6.4a2 2 0 1 1-1.2-1.8v-4.3l-3.5.9v5.2a2 2 0 1 1-1.2-1.8v-6.1z" fill="#000" transform="translate(.4 1)"/></mask></defs><g mask="url(#libm)" fill="currentColor"><rect x="1.5" y="7" width="20" height="20" rx="4.5"/><rect x="4" y="3.2" width="15" height="2.4" rx="1.2"/><rect x="6.5" y=".2" width="10" height="2.2" rx="1.1"/></g></svg>
+          </span><span class="l">Library</span></button>
+        </div>
+        <button class="plus" id="tabPlus" aria-label="Add a playlist"><span class="glass"></span><svg style="position:relative" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#eaf4f8" stroke-width="2" stroke-linecap="round"><path d="M10 3v14M3 10h14"/></svg></button>
+      </nav>
+
+      <!-- library -->
+      <section class="scr lib" id="scrLib" aria-hidden="true">
+        <div class="bgl"></div>
+        <h1 class="large">Library</h1>
+        <div class="lscroll" id="lScroll">
+          <div class="lcards" id="lCards"></div>
+          <h3 class="rec">Recently Added</h3>
+          <div class="grid" id="lGrid"></div>
+        </div>
+      </section>
+
+      <!-- playlist detail -->
+      <section class="scr det" id="scrDet" aria-hidden="true">
+        <div class="bgl"></div>
+        <button class="back" id="dBack" aria-label="Back"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 2 10l8 8"/></svg></button>
+        <div class="cov" id="dCov"></div>
+        <h2 id="dTitle">Playlist title</h2>
+        <p class="ds" id="dSub"></p>
+        <div class="tb" id="dTb">
+          <button class="spot" id="dSpot">Listen on Spotify</button>
+          <button class="swapall" id="dSwap">Swap all</button>
+          <div class="ics">
+            <button id="dAdd" aria-label="Save as a new playlist"><svg width="26" height="22" viewBox="0 0 26 22" fill="none" stroke="#eaf4f8" stroke-width="2" stroke-linecap="round"><path d="M12 5.5h12M12 11h12M2 16.5h22M2 5.5h5M4.5 3v5"/><rect x="1.2" y="2.2" width="7.6" height="6.6" rx="2.4" stroke-width="0" fill="#eaf4f8"/><path d="M5 4.6v2.8M3.6 6h2.8" stroke="#0b2433" stroke-width="1.6"/></svg></button>
+            <button id="dUndo" aria-label="Undo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#eaf4f8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.5 8 7 10.5 9.5 13M7 10.5h6a3 3 0 0 1 0 6h-2"/></svg></button>
+          </div>
+        </div>
+        <div class="dl" id="dList"></div>
+      </section>
+
+      <!-- open: pick a playlist or paste a link -->
+      <section class="scr open on" id="scrOpen">
+        <div class="bgl"></div>
+        <div class="hero" id="oHero">
+          <div class="greet"><span class="a">Hi, fel.</span><span class="b">Bonjour.</span></div>
+          <h1>Make your<br>playlist more<br><em>Canadian.</em></h1>
+          <p>We swap songs that aren’t Canadian for ones that are. You decide, one card at a time.</p>
+        </div>
+        <h1 class="ptitle" id="oTitle">Make your playlist<br>more <em>Canadian.</em></h1>
+        <div class="plays" id="oPlays"><div class="shd">Your playlists</div></div>
+        <button class="otab" id="oTab" aria-label="Match"><span class="glass"></span><img src="assets/6869e.svg" alt=""></button>
+        <div class="linkrow" id="oLink">
+          <div class="lf" id="lf"><img src="assets/36d6f.svg" alt=""><input id="lnk" type="text" inputmode="none" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Paste a playlist link" aria-label="Spotify playlist link"></div>
+          <button class="xb" id="xBtn" aria-label="Close keyboard"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M3 3l12 12M15 3 3 15"/></svg></button>
+        </div>
+        <div class="kb" id="kb"></div>
+      </section>
+
+      <div class="status" aria-hidden="true">
+        <div class="tm"><span>9:41</span></div><div class="isl"></div><div class="lv"><img src="assets/f8d4b.svg" alt=""></div>
+      </div>
+      <canvas class="fxc" id="fxc" width="780" height="1688"></canvas>
+      <div class="toast" id="toast"></div>
+    </div>
+  </div>
+</div>
+<div class="sr" id="live" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
